@@ -68,7 +68,7 @@ cd .. || exit $?
 #make package
 tar -cf EPWING-Wikipedia-JA-$DATE.tar WIKIPJA || exit $?
 rm -rf WIKIPJA || exit $?
-split -d -a 2 -b 2000M EPWING-Wikipedia-JA-$DATE.tar EPWING-Wikipedia-JA-$DATE.tar. || exit $?
+split -d -a 2 -b 1000M EPWING-Wikipedia-JA-$DATE.tar EPWING-Wikipedia-JA-$DATE.tar. || exit $?
 rm EPWING-Wikipedia-JA-$DATE.tar || exit $?
 ls EPWING-Wikipedia-JA-$DATE.tar.* | xargs -P $NCPU -I {} sh -c 'sha256sum {} > {}.sha256 || exit $?' || exit $?
 cat EPWING-Wikipedia-JA-$DATE.tar.*.sha256 | gzip -c9 > EPWING-Wikipedia-JA-$DATE.sha256.gz || exit $?

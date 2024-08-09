@@ -4,5 +4,16 @@ jobs:
   makeWIKIPJA:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: sh -c makeWIKIPJA.sh
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build
+        run: sh -c makeWIKIPJA.sh
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            checkWIKIPJA-*.sh
+            catWIKIPJA-*.sh
+            EPWING-Wikipedia-JA-*.sha256.gz
+            EPWING-Wikipedia-JA-*.tar.*

@@ -3,10 +3,10 @@ NCPU=`grep -c processor /proc/cpuinfo` || exit $?
 #install requirements
 sudo apt install -y build-essential coreutils gzip bzip2 lbzip2 unzip mimetex libimage-magick-perl zlib1g-dev wget || exit $?
 #retrieve wikipedia-fpw and extract
-wget -c http://green.ribbon.to/~ikazuhiro/dic/files/wikipedia-fpw-20091202-src.tar.gz || exit $?
+wget -nv -c http://green.ribbon.to/~ikazuhiro/dic/files/wikipedia-fpw-20091202-src.tar.gz || exit $?
 tar -xzf wikipedia-fpw-20091202-src.tar.gz || exit $?
 #install freepwing
-wget -c ftp://ftp.sra.co.jp/pub/misc/freepwing/freepwing-1.6.1.tar.bz2 || exit $?
+wget -nv -c ftp://ftp.sra.co.jp/pub/misc/freepwing/freepwing-1.6.1.tar.bz2 || exit $?
 tar -xjf freepwing-1.6.1.tar.bz2 || exit $?
 cd freepwing-1.6.1 || exit $?
 ./configure --prefix=$CURDIR --with-perllibdir=$CURDIR/wikipedia-fpw-20091202 || exit $?
@@ -16,7 +16,7 @@ make clean || exit $?
 cd .. || exit $?
 rm -rf freepwing-1.6.1 || exit $?
 #install eb
-wget -c https://github.com/mistydemeo/eb/releases/download/v4.4.3/eb-4.4.3.tar.bz2 || exit $?
+wget -nv -c https://github.com/mistydemeo/eb/releases/download/v4.4.3/eb-4.4.3.tar.bz2 || exit $?
 tar -xjf eb-4.4.3.tar.bz2 || exit $?
 cd eb-4.4.3 || exit $?
 ./configure --prefix=$CURDIR || exit $?
@@ -28,9 +28,9 @@ rm -rf eb-4.4.3 || exit $?
 #make EPWING data using wikipedia-fpw
 cd wikipedia-fpw-20091202 || exit $?
 #retrieve dump data of Wikipedia-JA
-wget -c https://dumps.wikimedia.org/jawiki/latest/jawiki-latest-pages-articles.xml.bz2 || exit $?
+wget -nv -c https://dumps.wikimedia.org/jawiki/latest/jawiki-latest-pages-articles.xml.bz2 || exit $?
 #retrieve SHA1 checksum file
-wget -c https://dumps.wikimedia.org/jawiki/latest/jawiki-latest-sha1sums.txt || exit $?
+wget -nv -c https://dumps.wikimedia.org/jawiki/latest/jawiki-latest-sha1sums.txt || exit $?
 #modify checksum file
 perl -i -npe 's/(\sjawiki)-(\d{8})-/$1-latest-/;if($.==1){print(STDERR "$2\n")}' jawiki-latest-sha1sums.txt 2> date.txt || exit $?
 DATE=`cat date.txt` || exit $?
@@ -56,7 +56,7 @@ cd .. || exit $?
 rm -rf wikipedia-fpw-20091202 || exit $?
 chmod 777 WIKIPJA || exit $?
 #retrieve gaiji map
-wget -c -O gai16_xbm.zip https://ftp.iij.ad.jp/pub/osdn.jp/boookends/54674/gai16_xbm.zip || exit $?
+wget -nv -c -O gai16_xbm.zip https://ftp.iij.ad.jp/pub/osdn.jp/boookends/54674/gai16_xbm.zip || exit $?
 unzip gai16_xbm.zip || exit $?
 mv gai16_xbm/wikip.map WIKIPJA/WIKIPJA.map || exit $?
 mv gai16_xbm/wikip.plist WIKIPJA/WIKIPJA.plist || exit $?

@@ -1,3 +1,4 @@
+read -p 'input github token: ' github_token
 user_name="astanabe"
 repo_name="EPWING-Wikipedia-JA"
 tag_name=`cat tag_name.txt`

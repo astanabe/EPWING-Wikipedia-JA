@@ -76,3 +76,14 @@ rm EPWING-Wikipedia-JA-$DATE.tar.*.sha256 || exit $?
 echo -e "gzip -d EPWING-Wikipedia-JA-$DATE.sha256.gz\nsha256sum -c EPWING-Wikipedia-JA-$DATE.sha256" > checkWIKIPJA-$DATE.sh || exit $?
 echo -e "for f in EPWING-Wikipedia-JA-$DATE.tar.*\ndo cat \$f >> EPWING-Wikipedia-JA-$DATE.tar\nrm \$f\ndone" > catWIKIPJA-$DATE.sh || exit $?
 echo "tar -xf EPWING-Wikipedia-JA-$DATE.tar" > extractWIKIPJA-$DATE.sh || exit $?
+# Store variables
+user_name="astanabe"
+repo_name="EPWING-Wikipedia-JA"
+tag_name=`echo "$DATE" | perl -npe 's/(\d{4})(\d\d)(\d\d)/v0.1.$1.$2.$3/'`
+# Make download scripts
+for asset_file in checkWIKIPJA-*.sh catWIKIPJA-*.sh extractWIKIPJA-*.sh ${repo_name}-*.sha256.gz ${repo_name}-*.tar.*
+do echo "wget -c https://github.com/${user_name}/${repo_name}/releases/download/${tag_name}/${asset_file}" >> wgetWIKIPJA-$DATE.sh
+echo "curl -L -O -C - https://github.com/${user_name}/${repo_name}/releases/download/${tag_name}/${asset_file}" >> curlWIKIPJA-$DATE.sh
+done
+# Save tag name
+echo "${tag_name}" > tag_name.txt

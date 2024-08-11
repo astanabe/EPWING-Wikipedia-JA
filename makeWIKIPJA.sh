@@ -32,8 +32,8 @@ wget -nv -c https://dumps.wikimedia.org/jawiki/latest/jawiki-latest-pages-articl
 #retrieve SHA1 checksum file
 wget -nv -c https://dumps.wikimedia.org/jawiki/latest/jawiki-latest-sha1sums.txt || exit $?
 #modify checksum file
-perl -i -npe 's/(\sjawiki)-(\d{8})-/$1-latest-/;if($.==1){print(STDERR "$2\n")}' jawiki-latest-sha1sums.txt 2> date.txt || exit $?
-DATE=`cat date.txt` || exit $?
+perl -i -npe 's/(\sjawiki)-(\d{8})-/$1-latest-/;if($.==1){print(STDERR "$2\n")}' jawiki-latest-sha1sums.txt 2> ../date.txt || exit $?
+DATE=`cat ../date.txt` || exit $?
 #test SHA1 checksum
 sha1sum --ignore-missing -c jawiki-latest-sha1sums.txt || exit $?
 #extract XML
@@ -65,25 +65,3 @@ rm -rf gai16_xbm || exit $?
 cd WIKIPJA || exit $?
 $CURDIR/bin/ebzip -z -f -l 5 || exit $?
 cd .. || exit $?
-#make package
-tar -cf EPWING-Wikipedia-JA-$DATE.tar WIKIPJA || exit $?
-rm -rf WIKIPJA || exit $?
-split -d -a 2 -b 2000M EPWING-Wikipedia-JA-$DATE.tar EPWING-Wikipedia-JA-$DATE.tar. || exit $?
-rm EPWING-Wikipedia-JA-$DATE.tar || exit $?
-ls EPWING-Wikipedia-JA-$DATE.tar.* | xargs -P $NCPU -I {} sh -c 'sha256sum {} > {}.sha256 || exit $?' || exit $?
-cat EPWING-Wikipedia-JA-$DATE.tar.*.sha256 | gzip -c9 > EPWING-Wikipedia-JA-$DATE.sha256.gz || exit $?
-rm EPWING-Wikipedia-JA-$DATE.tar.*.sha256 || exit $?
-echo -e "gzip -d EPWING-Wikipedia-JA-$DATE.sha256.gz\nsha256sum -c EPWING-Wikipedia-JA-$DATE.sha256" > checkWIKIPJA-$DATE.sh || exit $?
-echo -e "for f in EPWING-Wikipedia-JA-$DATE.tar.*\ndo cat \$f >> EPWING-Wikipedia-JA-$DATE.tar\nrm \$f\ndone" > catWIKIPJA-$DATE.sh || exit $?
-echo "tar -xf EPWING-Wikipedia-JA-$DATE.tar" > extractWIKIPJA-$DATE.sh || exit $?
-# Store variables
-user_name="astanabe"
-repo_name="EPWING-Wikipedia-JA"
-tag_name=`echo "$DATE" | perl -npe 's/(\d{4})(\d\d)(\d\d)/v0.1.$1.$2.$3/'`
-# Make download scripts
-for asset_file in checkWIKIPJA-*.sh catWIKIPJA-*.sh extractWIKIPJA-*.sh ${repo_name}-*.sha256.gz ${repo_name}-*.tar.*
-do echo "wget -c https://github.com/${user_name}/${repo_name}/releases/download/${tag_name}/${asset_file}" >> wgetWIKIPJA-$DATE.sh
-echo "curl -L -O -C - https://github.com/${user_name}/${repo_name}/releases/download/${tag_name}/${asset_file}" >> curlWIKIPJA-$DATE.sh
-done
-# Save tag name
-echo "${tag_name}" > tag_name.txt

@@ -4,6 +4,7 @@ repo_name="EPWING-Wikipedia-JA"
 dict_name="WIKIPJA"
 date=`cat date.txt`
 tag_name=`echo "${date}" | perl -npe 's/(\d{4})(\d\d)(\d\d)/v0.1.$1.$2.$3/'`
+NCPU=`grep -c processor /proc/cpuinfo` || exit $?
 
 # Make package
 tar -cf ${repo_name}-${date}.tar ${dict_name} || exit $?

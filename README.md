@@ -20,8 +20,8 @@ This script is based on the following products.
 
 ## How to get dictionary from this repository
 
-1. Download `curlWIKIPJA-XXXXXXXX.sh` or `wgetEIKIPJA-XXXXXXXX.sh` from [latest release](https://github.com/astanabe/EPWING-Wikipedia-JA/releases/latest)
-2. Run `curlWIKIPJA-XXXXXXXX.sh` or `wgetEIKIPJA-XXXXXXXX.sh` in order to download release files
+1. Download `curlWIKIPJA-XXXXXXXX.sh` or `wgetWIKIPJA-XXXXXXXX.sh` from [latest release](https://github.com/astanabe/EPWING-Wikipedia-JA/releases/latest)
+2. Run `curlWIKIPJA-XXXXXXXX.sh` or `wgetWIKIPJA-XXXXXXXX.sh` in order to download release files
 3. Run file integrity check script `checkWIKIPJA-XXXXXXXX.sh`
 4. Run file concatenation script `catWIKIPJA-XXXXXXXX.sh`
 5. Run file extraction script `extractWIKIPJA-XXXXXXXX.sh`

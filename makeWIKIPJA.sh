@@ -49,8 +49,8 @@ iconv -f utf8 -t euc-jp catalogs.temp > catalogs.txt || exit $?
 perl -i -npe "s/^DIR = WIKIP/DIR = WIKIPJA/;s/^PACKAGE = wikipedia-fpw-20091202/PACKAGE = EPWING-Wikipedia-JA-$DATE/" Makefile || exit $?
 #perform convert
 PERL_USE_UNSAFE_INC=1 $CURDIR/bin/fpwmake catalogs || exit $?
-PERL_USE_UNSAFE_INC=1 $CURDIR/bin/fpwmake -j$NCPU all
-PERL_USE_UNSAFE_INC=1 $CURDIR/bin/fpwmake -j$NCPU INSTALLDIR=".." HASH_MOD=BDB FPWLINKMOD=BDB install || exit $?
+PERL_USE_UNSAFE_INC=1 $CURDIR/bin/fpwmake -j$NCPU HASH_MOD=BDB FPWLINKMOD=BDB all
+PERL_USE_UNSAFE_INC=1 $CURDIR/bin/fpwmake -j$NCPU HASH_MOD=BDB FPWLINKMOD=BDB INSTALLDIR=".." install || exit $?
 PERL_USE_UNSAFE_INC=1 $CURDIR/bin/fpwmake clean || exit $?
 cd .. || exit $?
 rm -rf wikipedia-fpw-20091202 || exit $?

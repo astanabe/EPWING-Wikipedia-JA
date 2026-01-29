@@ -1,7 +1,7 @@
 CURDIR=`pwd` || exit $?
 NCPU=`grep -c processor /proc/cpuinfo` || exit $?
 #install requirements
-sudo apt install -y build-essential coreutils gzip bzip2 lbzip2 unzip mimetex libimage-magick-perl zlib1g-dev wget || exit $?
+sudo apt install -y build-essential coreutils gzip bzip2 pbzip2 unzip mimetex libimage-magick-perl zlib1g-dev wget curl || exit $?
 #retrieve wikipedia-fpw and extract
 wget -nv -c http://green.ribbon.to/~ikazuhiro/dic/files/wikipedia-fpw-20091202-src.tar.gz || exit $?
 tar -xzf wikipedia-fpw-20091202-src.tar.gz || exit $?
@@ -37,7 +37,7 @@ DATE=`cat ../date.txt` || exit $?
 #test SHA1 checksum
 sha1sum --ignore-missing -c jawiki-latest-sha1sums.txt || exit $?
 #extract XML
-lbzip2 -d jawiki-latest-pages-articles.xml.bz2 || exit $?
+pbzip2 -d jawiki-latest-pages-articles.xml.bz2 || exit $?
 #change file name
 mv jawiki-latest-pages-articles.xml wikipedia.xml || exit $?
 #modify wikipedia-fpw.conf

@@ -8,6 +8,10 @@ This script is based on the following products.
 - [wikipedia-fpw](http://green.ribbon.to/~ikazuhiro/dic/wikipedia-fpw.html)
 - [Dump data of ja.wikipedia.org](https://dumps.wikimedia.org/jawiki/)
 
+## License notice
+
+This generation script is distributed under GNU GPL v2.0. However, the generated electronic dictionary is licensed under different licenses. See [this license information](https://dumps.wikimedia.org/legal.html).
+
 ## Prerequisites to get dictionary from this repository
 
 1. sh
